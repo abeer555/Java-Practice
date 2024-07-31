@@ -1,0 +1,57 @@
+import java.util.*;
+public class D2B
+{
+    public static void main() {
+        String s=new Scanner(System.in).next();
+        double d=Double.parseDouble(s);
+        String[] arr=String.valueOf(d).split("\\.");
+        int[] intArr=new int[2];
+        int a,quo,rem;
+        String res="",resRev="";
+        if(arr[1].contains("E")){
+            intArr[0]=(int)d; 
+            intArr[1]=0; 
+        }
+        else {
+            intArr[0]=Integer.parseInt(arr[0]);
+            intArr[1]=Integer.parseInt(arr[1]);
+        }
+        //System.out.println(intArr[0]+" "+intArr[1]);
+        System.out.println("\t\tQuotient\tRemainder");
+        quo=intArr[0];
+        while(quo!=0) {
+            System.out.print("("+quo+")/2\t\t");
+            rem=quo%2;
+            quo/=2;
+            System.out.println(quo+"       \t"+rem);
+            res+=rem+"";
+        }
+        for(int i=res.length()-1;i>=0;i--)
+            resRev+=res.charAt(i);
+        
+        String decimal="";
+        if(s.contains(".")){
+            double dec=Double.valueOf("0."+arr[1]);
+            d=dec;
+            for(int i=0;i<10;i++) {
+                d=Math.round(d * 1000.0) / 1000.0;
+                System.out.print(d+" * 2 = "+(d*2));
+                d*=2;
+                if(d==1.0)
+                    break;
+                if(d<1.0){
+                    decimal+="0";
+                    System.out.println("\t\t0");
+                }
+                if(d>1.0){
+                    d-=1.00;
+                    decimal+="1";
+                    System.out.println("\t\t1");
+                }
+                if(i==10)
+                    break;
+            }
+        }
+        System.out.println(resRev+"."+decimal);
+    }
+}
